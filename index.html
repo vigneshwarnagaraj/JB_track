@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="A calmer place to keep your job applications, resumes, and next steps.">
+  <meta name="referrer" content="no-referrer"><meta http-equiv="Cache-Control" content="no-store">
+  <title>Chapter — Job tracker</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js?v=4" defer></script>
+</head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="#home"><span class="brand-icon">c<span>·</span></span>chapter<span class="brand-dot">.</span></a>
+  <div class="workspace">YOUR NEXT CHAPTER</div>
+  <nav aria-label="Main navigation">
+    <a href="#home" data-page="home"><span aria-hidden="true">▦</span>Overview</a>
+    <a href="#new" data-page="new"><span aria-hidden="true">⊕</span>New application</a>
+    <a href="#applications" data-page="applications"><span aria-hidden="true">▤</span>All applications <b id="nav-count">—</b></a>
+  </nav>
+  <div class="sidebar-note"><span class="spark">✳</span><h3>Small steps.<br>Big possibilities.</h3><p>Every application is a step toward something new.</p></div>
+</aside>
+<div class="shell">
+  <header class="topbar"><span>Personal workspace <span class="divider">/</span> <strong id="breadcrumb">Overview</strong></span><span id="cloud-state" class="cloud-state">File backup</span></header>
+  <main>
+    <div class="notice"><div><strong>Your backup file</strong><p id="backup-state">Open an existing backup or save your first one with Sync.</p></div><div class="backup-actions"><button class="button secondary" id="open-backup">Open backup</button> <button class="button" id="sync">Sync</button> <button class="button secondary" id="save-backup-as">Save backup as…</button> <a class="button secondary" href="https://drive.google.com/drive/folders/1G6vwzFZ9h_nNFY5MJO8UTW3GVGPX3vHj" target="_blank" rel="noopener noreferrer">Open Drive folder ↗</a><input id="backup-file" type="file" accept=".json,application/json" hidden></div></div>
+    <div id="message" class="message" role="status" hidden></div>
+    <section id="home" class="page">
+      <div class="page-heading"><div><p class="eyebrow">A LITTLE PROGRESS, EVERY DAY</p><h1>Your next chapter starts here<span>.</span></h1><p class="subtitle">A clear view of your search. More space to focus on what’s next.</p></div><a href="#new" class="button">＋ New application</a></div>
+      <div class="date-line"><span class="live-dot"></span><span id="today-label"></span><span class="muted">· Your computer’s local date</span></div>
+      <div class="stats">
+        <article class="stat"><div>Total applications <span>↗</span></div><strong id="total">—</strong><small>Your search, all in one place</small></article>
+        <article class="stat"><div>Applied today <span>◷</span></div><strong id="today-count">—</strong><small>A little momentum goes a long way</small></article>
+        <article class="stat"><div>This week <span>▥</span></div><strong id="week-count">—</strong><small>Monday through today</small></article>
+        <article class="stat"><div>Total companies <span>◇</span></div><strong id="companies">—</strong><small>Unique companies you applied to</small></article>
+      </div>
+      <section class="panel status-panel" aria-labelledby="status-heading">
+        <h2 id="status-heading">Applications by status</h2>
+        <dl id="status-counts" class="status-counts"></dl>
+      </section>
+      <div class="dashboard-grid"><article class="panel activity-panel"><div class="panel-title"><div><h2>Your application rhythm</h2><p>The last 7 days, one step at a time.</p></div><span class="pill">This week</span></div><div id="chart" class="chart" aria-label="Applications over the last seven days"></div></article>
+      <article class="focus-card"><span class="orb" aria-hidden="true">✳</span><p class="eyebrow">ONE PLACE. A CLEARER MIND.</p><h2>Keep the details.<br>Find your direction.</h2><p>Resumes, descriptions, and the answers you gave — right where you need them.</p><a href="#applications">Explore your applications <span>↗</span></a></article></div>
+      <article class="panel recent-panel"><div class="panel-title"><div><h2>Recent applications</h2><p>Your latest steps forward.</p></div><a href="#applications" class="text-link">View all ↗</a></div><div id="recent"></div></article>
+      <footer><span class="mini-brand">chapter.</span><span>A little more organized. A little closer.</span><span>Backup file · Stored on your computer</span></footer>
+    </section>
+    <section id="new" class="page" hidden>
+      <div class="page-heading"><div><p class="eyebrow">CAPTURE YOUR NEXT OPPORTUNITY</p><h1>New application<span>.</span></h1><p class="subtitle">The details today. A clearer picture tomorrow.</p></div></div>
+      <form id="application-form" class="panel application-form" autocomplete="off">
+        <div class="form-section-title"><span>01</span><h2>Application details</h2></div>
+        <div class="form-grid">
+          <label>Company name <span class="required">*</span><input name="company" required maxlength="200" placeholder="e.g. Acme Studio"></label>
+          <label>Position <span class="required">*</span><input name="position" required maxlength="200" placeholder="e.g. Product Designer"></label>
+          <label>Location<input name="location" maxlength="300" placeholder="e.g. Chicago, IL · Remote"></label>
+          <label>Application date<input id="application-date" type="date" readonly aria-describedby="date-note"><small id="date-note">Automatically follows your computer’s date at submission.</small></label>
+          <label>Salary<input name="salary" maxlength="200" placeholder="e.g. $90,000–$120,000 / year"></label>
+          <label>Job link<input name="job_link" type="url" maxlength="3000" placeholder="https://company.com/careers/role"></label>
+          <label class="full">Resume used <span class="optional">Optional</span><span class="upload-zone"><span class="upload-icon">↑</span><strong>Choose your resume</strong><span>PDF, DOC, or DOCX · Up to 10 MB</span><input name="resume" id="resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"><span id="file-name"></span></span></label>
+          <label class="full">Job description<textarea name="description" rows="7" maxlength="50000" placeholder="Paste the job description, responsibilities, and requirements…"></textarea></label>
+        </div>
+        <div class="additional-title"><div><h2>Additional details</h2><p>Keep a record of application questions and your responses.</p></div><button id="add-question" class="plus-button" type="button" aria-label="Add a question and response">＋</button></div>
+        <div id="questions"></div>
+        <div class="form-bottom"><span id="save-hint">Applications save in this browser. Use Sync for a separate backup.</span><button id="save-button" class="button" type="submit">Save application ↗</button></div>
+      </form>
+    </section>
+    <section id="applications" class="page" hidden>
+      <div class="page-heading"><div><p class="eyebrow">YOUR SEARCH, ALL TOGETHER</p><h1>All applications<span>.</span></h1><p class="subtitle">Organized by date. Every detail a click away.</p></div><a href="#new" class="button">＋ New application</a></div>
+      <div class="list-toolbar"><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search company, position, or location" aria-label="Search applications"></label></div>
+      <div id="application-list"></div>
+    </section>
+  </main>
+</div>
+</body></html>
